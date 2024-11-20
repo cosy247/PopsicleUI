@@ -1,0 +1,100 @@
+/* sButton */
+.sButton {
+  width: fit-content;
+  background: #0078d4;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  line-height: 1.15em;
+}
+
+.sButton:hover {
+  background: #088aed;
+}
+
+/* sInput */
+.sInput {
+  border: 1px #313131 solid;
+  outline: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.sInput:read-only {
+  color: #aaa;
+}
+
+.sInput:focus {
+  outline: 1px solid #088aed;
+}
+
+/* sSelect */
+.sSelect {
+  background: #313131;
+  border: none;
+  outline: none;
+  color: #eee;
+  padding: 5px 10px;
+  border-radius: 3px;
+  line-height: 20px;
+  box-sizing: content-box;
+}
+
+.sSelect:focus {
+  outline: 1px solid #088aed;
+}
+
+/* sTable */
+.sTable {
+  border-collapse: collapse;
+  border: 1px solid #088aed;
+}
+
+.sTable > tr > th,
+.sTable > tbody > tr > th {
+  background: #088aed;
+  color: white;
+  line-height: 2em;
+  padding: 0 10px;
+}
+
+.sTable > tr > th + th,
+.sTable > tbody > tr > th + th {
+  border-left: 1px solid #1f1f1f;
+}
+
+.sTable > tr > td,
+.sTable > tbody > tr > td {
+  border-left: 1px solid #088aed;
+  border-bottom: 1px solid #088aed;
+  line-height: 1.5em;
+  padding: 5px;
+}
+
+/* sTableList */
+.sTableList {
+  border: 1px solid #088aed;
+  border-collapse: collapse;
+}
+
+.sTableList > tr > td,
+.sTableList > tbody > tr > td {
+  border-left: 1px solid #088aed;
+  border-top: 1px solid #088aed;
+  line-height: 1.5em;
+  padding: 5px;
+}
+
+.sTableList > tr > td:first-child,
+.sTableList > tbody > tr > td:first-child {
+  background: #088aed;
+  color: white;
+  padding: 0 10px;
+  font-weight: 900;
+}
+
+.sTableList > tr + tr > td:first-child,
+.sTableList > tbody > tr + tr > td:first-child {
+  border-top: 1px solid #1f1f1f;
+}

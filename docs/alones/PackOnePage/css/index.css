@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.readonly {
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+.background {
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.root {
+    height: 80vh;
+    width: 75vw;
+    min-width: 900px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    padding: 10px 50px;
+    width: fit-content;
+    margin: auto;
+    border-radius: 100px;
+    border: #fff 2px solid;
+}
+
+.title-icon {
+    height: 1.4em;
+}
+
+.title-help {
+    height: 1em;
+    opacity: 0.7;
+    margin-right: -20px;
+    cursor: pointer;
+}
+
+.main {
+    display: flex;
+    gap: 20px;
+    height: 0px;
+    flex: 1;
+    border: 2px solid #000a64;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff3;
+    backdrop-filter: blur(10px);
+}
+
+.urlInput {
+    display: flex;
+    width: 35%;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.urlInput-op {
+    display: flex;
+    gap: 5px;
+    width: 100%;
+}
+
+.urlInput input {
+    flex: 1;
+    border-color: #efe8;
+}
+
+.urlInput-history-box {
+    display: flex;
+    flex: 1;
+    height: 0;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+}
+
+.urlInput-historys {
+    flex: 1;
+    height: 0;
+    width: 100%;
+    overflow: auto;
+    scrollbar-width: none;
+}
+
+.urlInput-historys::-webkit-scrollbar {
+    display: none;
+}
+
+.urlInput-history {
+    display: flex;
+    margin: 5px;
+    gap: 5px;
+    height: 30px;
+    animation: urlInputHistory 0.5s;
+}
+
+@-webkit-keyframes urlInputHistory {
+    0% {
+        margin-top: -30px;
+    }
+}
+
+@-moz-keyframes urlInputHistory {
+    0% {
+        margin-top: -30px;
+    }
+}
+
+@-o-keyframes urlInputHistory {
+    0% {
+        margin-top: -30px;
+    }
+}
+
+@keyframes urlInputHistory {
+    0% {
+        margin-top: -30px;
+    }
+}
+
+.urlInput-history-url {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 14px;
+    background: #efe8;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    direction: rtl;
+}
+
+.urlInput-history-url.current {
+    background: #fe65a688;
+}
+
+.urlInput-history-options {
+    display: flex;
+    gap: 10px;
+    margin: 0 5px 5px;
+}
+
+.urlInput-history-option {
+    flex: 1;
+    text-align: center;
+}
+
+.detail {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-fetchs {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    overflow: auto;
+    padding: 20px;
+}
+
+.detail-fetch-url {
+    font-size: 20px;
+    padding: 3px 10px;
+    margin: 0 auto 20px;
+    width: fit-content;
+    border: 2px solid #5488b7;
+    border-radius: 10px;
+    background: #9bc7f044;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.detail-fetch-ol {
+    padding-left: 40px;
+    flex: 1;
+    overflow: auto;
+}
+
+.detail-fetch-ol::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.detail-fetch-ol::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #fff8;
+}
+
+.detail-fetch {
+    margin-top: 10px;
+    display: block;
+    color: black;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    width: fit-content;
+    padding-bottom: 2px;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.detail-fetch:hover {
+    text-decoration: underline;
+}
+
+.detail-setting {
+    display: flex;
+    gap: 10px;
+}
+
+.detail-setting-filename {
+    flex: 1;
+}
