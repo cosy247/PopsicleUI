@@ -1,0 +1,14 @@
+.mdContent {
+    margin-top: -80px;
+}
+
+.mdContent > h1 a,
+.mdContent > h2 a,
+.mdContent > h3 a {
+    color: #363636;
+}
+.mdContent > h1 a::before,
+.mdContent > h2 a::before,
+.mdContent > h3 a::before {
+    content: '';
+}
