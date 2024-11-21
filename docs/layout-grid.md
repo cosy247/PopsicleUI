@@ -17,14 +17,14 @@ top: { top } # 是否zhi置顶，数字越大优先级越高
 
 ## 基础使用
 
-:::dome  
-<template>
+:::Dome  
+<template v-if="true">
   <div class="demo-row" v-for="row in demoList">
-    <bp-row>
-      <bp-col v-for="col in row" :span="col">
+    <BpRow>
+      <BpCol v-for="col in row" :span="col">
         <div class="demo">col - {{ col }}</div>
-      </bp-col>
-    </bp-row>
+      </BpCol>
+    </BpRow>
   </div>
 </template>
 
@@ -32,8 +32,11 @@ top: { top } # 是否zhi置顶，数字越大优先级越高
 const demoList = [[24], [12, 12], [8, 8, 8], [6, 6, 6, 6], [4, 4, 4, 4, 4, 4]];
 </script>
 
-<style scoped></style>
-
+<style scoped>
+.demo {
+  color: red
+}
+</style>
 :::
 
 ## 属性

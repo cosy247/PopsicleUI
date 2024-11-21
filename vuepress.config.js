@@ -21,11 +21,7 @@ export default theme({
             { name: 'archiveTop', inputPrompt: '文章归档排序，数字越大越靠前' },
         ],
     },
-    heads: [
-        ['link', { rel: 'stylesheet', href: 'styles/md.css' }],
-        ['link', { rel: 'stylesheet', href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css' }],
-        ['script', { src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js' }],
-    ],
+    heads: [['link', { rel: 'stylesheet', href: 'styles/md.css' }]],
     menuAlign: 'right',
     giscus: {
         // repo: 'cosy247/vuepress-theme-cosy',

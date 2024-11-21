@@ -12,6 +12,8 @@
         "update-package": "npx vp-update"
     },
     "dependencies": {
+        "@highlightjs/vue-plugin": "github:highlightjs/vue-plugin",
+        "highlight.js": "^11.10.0",
         "vuepress-theme-pudding": "file:theme"
     }
 }
