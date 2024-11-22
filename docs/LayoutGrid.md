@@ -1,14 +1,14 @@
 ---
 id: 1732157579949 # 文章id
-title: 栅格布局 # 文章标题
-description: 栅格布局 # 文章描述
+title: 栅格布局 LayoutGrid # 文章标题
+description: 栅格布局 LayoutGrid # 文章描述
 archive: 组件 # 文章归档
 archiveTitle: 布局 # 文章归档目录标题
 archiveTop: 100 # 文章归档排序，数字越大越靠前
 top: { top } # 是否zhi置顶，数字越大优先级越高
 ---
 
-# 栅格布局
+# 栅格布局 LayoutGrid
 
 使用栅格对页面进行划分布局。
 
@@ -172,24 +172,26 @@ const style = computed(() => {
 
 :::Dome title="LayoutGridItem.vue" hiddenTemp
 
+```vue
 <template>
-    <div :style="{ gridArea }">
-        <slot></slot>
-    </div>
+  <div :style="{ gridArea }">
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 
 const { row, column } = defineProps<{
-    row: Array<number>;
-    column: Array<number>;
+  row: Array<number>;
+  column: Array<number>;
 }>();
 const gridArea = computed(() => {
-    let [rowStart = 1, rowEnd = rowStart] = row;
-    let [cloumnStart = 1, cloumnEnd = cloumnStart] = column;
-    return `${rowStart}/${cloumnStart}/${rowEnd + 1}/${cloumnEnd + 1}`;
+  let [rowStart = 1, rowEnd = rowStart] = row;
+  let [cloumnStart = 1, cloumnEnd = cloumnStart] = column;
+  return `${rowStart}/${cloumnStart}/${rowEnd + 1}/${cloumnEnd + 1}`;
 });
 </script>
+```
 
 :::

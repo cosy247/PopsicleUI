@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@highlightjs/vue-plugin": "github:highlightjs/vue-plugin",
+        "@vue/compiler-sfc": "^3.5.13",
         "highlight.js": "^11.10.0",
         "vuepress-theme-pudding": "file:theme"
     }
