@@ -1,26 +1,47 @@
 /* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
-    font-family: 'iconfont'; /* Project id 4752360 */
-    src: url('//at.alicdn.com/t/c/font_4752360_iiu4wh0mnx.woff2?t=1732175361950') format('woff2'),
-        url('//at.alicdn.com/t/c/font_4752360_iiu4wh0mnx.woff?t=1732175361950') format('woff'),
-        url('//at.alicdn.com/t/c/font_4752360_iiu4wh0mnx.ttf?t=1732175361950') format('truetype');
+  font-family: 'iconfont'; /* Project id 4752360 */
+  src: url('//at.alicdn.com/t/c/font_4752360_iiu4wh0mnx.woff2?t=1732175361950') format('woff2'),
+    url('//at.alicdn.com/t/c/font_4752360_iiu4wh0mnx.woff?t=1732175361950') format('woff'),
+    url('//at.alicdn.com/t/c/font_4752360_iiu4wh0mnx.ttf?t=1732175361950') format('truetype');
 }
 
 * {
-    font-family: 'iconfont';
+  font-family: 'iconfont';
 }
 
 .mdContent {
-    margin-top: -80px;
+  margin-top: -80px;
 }
 
 .mdContent > h1 a,
 .mdContent > h2 a,
 .mdContent > h3 a {
-    color: #363636;
+  color: #363636;
 }
 .mdContent > h1 a::before,
 .mdContent > h2 a::before,
 .mdContent > h3 a::before {
-    content: '';
+  content: '';
+}
+
+.mdContent table {
+  border-radius: 10px;
+  overflow: hidden;
+  outline: 1px solid #eee;
+}
+
+.mdContent table tr,
+.mdContent table th,
+.mdContent table td {
+  border: none;
+}
+
+.mdContent table tbody tr {
+  border-top: 1px solid #eee;
+}
+
+.mdContent table th + th,
+.mdContent table td + td {
+  border-left: 1px solid #eee;
 }
