@@ -1,11 +1,10 @@
 ---
 id: 1732257423667 # 文章id
 title: 按钮 Button # 文章标题
-description: 按钮 Button # 文章描述
+description: popsicle-ui 按钮 Button # 文章描述
 archive: 组件 # 文章归档
 archiveTitle: 基础 # 文章归档目录标题
 archiveTop: 90 # 文章归档排序，数字越大越靠前
-top: { top } # 是否zhi置顶，数字越大优先级越高
 ---
 
 # 按钮 Button
