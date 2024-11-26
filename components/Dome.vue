@@ -1,8 +1,9 @@
 <template>
   <div class="Dome">
-    <div v-html="hh"></div>
-    <div class="show" v-if="!hiddenTemp && loaded">
-      <slot></slot>
+    <div class="show" v-if="!hiddenTemp">
+      <template v-if="AsyncComp">
+        <AsyncComp />
+      </template>
     </div>
     <div class="tools">
       <div class="tool-text">{{ text }}</div>
@@ -19,50 +20,30 @@
 import 'highlight.js/lib/common';
 import 'highlight.js/styles/github.css';
 import hljsVuePlugin from '@highlightjs/vue-plugin';
-import { onMounted, ref } from 'vue';
+import { defineAsyncComponent, nextTick, ref } from 'vue';
 
 const highlight = hljsVuePlugin.component;
-const { params, contents } = defineProps(['params', 'contents']);
+const { params } = defineProps(['params', 'contents']);
 const text = params.match(/(?<=\btitle=(['|"])).*?(?=\1)/)?.[0] || '';
+const file = params.match(/(?<=\bfile=(['|"])).*?(?=\1)/)?.[0] || '';
 const hiddenTemp = !!params.match(/\bhiddenTemp\b/);
-const content = contents.replace(' v-if="true"', '');
+const content = ref('');
 const isShowCode = ref(false);
 const highlightDom = ref(null);
 const codeHeight = ref('0px');
-const loaded = ref(false);
 
-const hh = `<template v-if="true">  
-  <LayoutGrid class="grid">  
-    <LayoutGridItem class="item" :row="[1]" :column="[1,10]">header</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[2,9]" :column="[1]">side</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[2,9]" :column="[2,10]">content</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[10]" :column="[1,10]">footer</LayoutGridItem>  
-  </LayoutGrid>  
-</template>
+const AsyncComp = defineAsyncComponent(() => import(file));
 
-<style scoped>
-.grid {
-  width: 100%;
-  height: 300px
-}
-.item {
-  background: #89e8;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px #89e solid;
-}
-</style>`;
+import(`${file}?raw`).then((d) => {
+  content.value = d.default;
+  nextTick(() => {
+    codeHeight.value = getComputedStyle(highlightDom.value.$el).height;
+  });
+});
 
 function copyToClip() {
-  navigator.clipboard.writeText(content).then(() => {});
+  navigator.clipboard.writeText(content.value).then(() => {});
 }
-
-onMounted(() => {
-  loaded.value = true;
-  codeHeight.value = getComputedStyle(highlightDom.value.$el).height;
-});
 </script>
 
 <style scoped>

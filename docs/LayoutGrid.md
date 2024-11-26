@@ -17,96 +17,21 @@ top: { top } # 是否zhi置顶，数字越大优先级越高
 `LayoutGrid` 默认会将容器分为 10 \* 10 的无间距容器。  
 `LayoutGridItem` 的 `row` 和 `column` 属性设置位置。
 
-:::Dome
-
-<template v-if="true">  
-  <LayoutGrid class="grid">  
-    <LayoutGridItem class="item" :row="[1]" :column="[1,10]">header</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[2,9]" :column="[1]">side</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[2,9]" :column="[2,10]">content</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[10]" :column="[1,10]">footer</LayoutGridItem>  
-  </LayoutGrid>  
-</template>
-
-<style scoped>
-.grid {
-  width: 100%;
-  height: 300px
-}
-.item {
-  background: #89e8;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px #89e solid;
-}
-</style>
-
+:::Dome file="../docs/examples/LayoutGrid/Basis.vue"  
 :::
 
 ## 设置间距
 
 通过 `gap`, `gapRow` 和 `gapColumn` 属性设置容器间距。
 
-:::Dome
-
-<template v-if="true">  
-  <LayoutGrid class="grid" :gapRow="10" :gapColumn="5">  
-    <LayoutGridItem class="item" :row="[1]" :column="[1,10]">header</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[2,9]" :column="[1]">side</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[2,9]" :column="[2,10]">content</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[10]" :column="[1,10]">footer</LayoutGridItem>  
-  </LayoutGrid>  
-</template>
-
-<style scoped>
-.grid {
-  width: 100%;
-  height: 300px
-}
-.item {
-  background: #89e8;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px #89e solid;
-}
-</style>
-
+:::Dome file="../docs/examples/LayoutGrid/Gap.vue"  
 :::
 
 ## 栅格密度
 
 通过 `row` 和 `column` 属性设置容器栅格密度，默认为 10。
 
-:::Dome
-
-<template v-if="true">  
-  <LayoutGrid class="grid" :row="15" :column="20" :gap="5">  
-    <LayoutGridItem class="item" :row="[1, 2]" :column="[1, 20]">header</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[3, 14]" :column="[1, 4]">side</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[3, 14]" :column="[5, 20]">content</LayoutGridItem>  
-    <LayoutGridItem class="item" :row="[15]" :column="[1, 20]">footer</LayoutGridItem>  
-  </LayoutGrid>  
-</template>
-
-<style scoped>
-.grid {
-  width: 100%;
-  height: 300px
-}
-.item {
-  background: #89e8;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px #89e solid;
-}
-</style>
-
+:::Dome file="../docs/examples/LayoutGrid/RowAndColumn.vue"  
 :::
 
 ## LayoutGrid 属性
@@ -128,70 +53,8 @@ top: { top } # 是否zhi置顶，数字越大优先级越高
 
 ## 源码
 
-:::Dome title="LayoutGrid.vue" hiddenTemp
-
-<template>
-  <div class="LayoutGrid" :style="style">
-    <slot></slot>
-  </div>
-</template>
-
-<script lang="ts" setup>
-import { computed } from 'vue';
-
-const { row, column, gap, gapRow, gapColumn } = defineProps<{
-  row?: Number;
-  column?: Number;
-  gap?: Number | String;
-  gapRow?: Number | String;
-  gapColumn?: Number | String;
-}>();
-
-const style = computed(() => {
-  let gapRow0, gapColumn0;
-  if (typeof gap === 'undefined') {
-    gapRow0 = typeof gapRow === 'number' ? `${gapRow}px` : gapRow;
-    gapColumn0 = typeof gapColumn === 'number' ? `${gapColumn}px` : gapColumn;
-  } else {
-    gapRow0 = gapColumn0 = typeof gap === 'number' ? `${gap}px` : gap;
-  }
-  return {
-    grid: `repeat(${row}, minmax(0, 1fr)) / repeat(${column}, minmax(0, 1fr))`,
-    gap: `${gapRow0} ${gapColumn0}`,
-  };
-});
-</script>
-
-<style scoped>
-.LayoutGrid {
-  display: grid;
-}
-</style>
-
+:::Dome title="LayoutGrid.vue" file="../ui/components/LayoutGrid.vue" hiddenTemp  
 :::
 
-:::Dome title="LayoutGridItem.vue" hiddenTemp
-
-```vue
-<template>
-  <div :style="{ gridArea }">
-    <slot></slot>
-  </div>
-</template>
-
-<script lang="ts" setup>
-import { computed } from 'vue';
-
-const { row, column } = defineProps<{
-  row: Array<number>;
-  column: Array<number>;
-}>();
-const gridArea = computed(() => {
-  let [rowStart = 1, rowEnd = rowStart] = row;
-  let [cloumnStart = 1, cloumnEnd = cloumnStart] = column;
-  return `${rowStart}/${cloumnStart}/${rowEnd + 1}/${cloumnEnd + 1}`;
-});
-</script>
-```
-
+:::Dome title="LayoutGridItem.vue" file="../ui/components/LayoutGridItem.vue" hiddenTemp  
 :::

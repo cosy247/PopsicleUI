@@ -5,7 +5,7 @@ export default theme({
   icon: 'assets/logo.icon',
   logo: 'assets/logo.png',
   homeType: 'introduce',
-  componentsPaths: ['mdComponents', 'components/components'],
+  componentsPaths: ['components'],
   outline: false,
   description: '基于vuepress的的个人博客。李十七的个人博客。个人博客。',
   draft: false,
