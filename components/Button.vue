@@ -21,7 +21,7 @@ const className = computed(() => {
   if (shape) classList.push(shape);
   if (type) classList.push(type);
   if (disable) classList.push('disable');
-  if (loading) classList.push('loading');
+  if (loading) classList.push('loading disable');
   return classList.join(' ');
 });
 const style = computed(() => {
@@ -30,7 +30,7 @@ const style = computed(() => {
   return style;
 });
 
-function handleClick(...arg: Array) {
+function handleClick(...arg: Array<any>) {
   !disable && emits('click', ...arg);
 }
 </script>

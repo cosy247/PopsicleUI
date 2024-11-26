@@ -28,7 +28,6 @@ const style = computed(() => {
     gap: `${gapRow0} ${gapColumn0}`,
   };
 });
-console.log(style);
 </script>
 
 <style scoped>
