@@ -12,6 +12,7 @@
     </div>
     <div class="code" :style="{ height: isShowCode ? codeHeight : '0px' }">
       <highlight ref="highlightDom" class="highlight" :code="content" />
+      <div class="code-close" @click="isShowCode = !isShowCode">收起</div>
     </div>
   </div>
 </template>
@@ -21,11 +22,12 @@ import 'highlight.js/lib/common';
 import 'highlight.js/styles/github.css';
 import hljsVuePlugin from '@highlightjs/vue-plugin';
 import { defineAsyncComponent, nextTick, ref } from 'vue';
+import { setting } from '../package.json';
 
 const highlight = hljsVuePlugin.component;
 const { params } = defineProps(['params', 'contents']);
 const text = params.match(/(?<=\btitle=(['|"])).*?(?=\1)/)?.[0] || '';
-const file = params.match(/(?<=\bfile=(['|"])).*?(?=\1)/)?.[0] || '';
+const file = params.match(/(?<=\bfile=(['|"])).*?(?=\1)/)?.[0];
 const hiddenTemp = !!params.match(/\bhiddenTemp\b/);
 const content = ref('');
 const isShowCode = ref(false);
@@ -50,15 +52,14 @@ function copyToClip() {
 .Dome {
   border: 1px solid #eee;
   border-radius: 10px;
-  overflow: hidden;
 }
 .show {
   padding: 20px;
   margin: auto;
+  border-bottom: 1px solid #eee;
 }
 .tools {
   padding: 10px 20px;
-  border-top: 1px solid #eee;
   display: flex;
   justify-content: flex-end;
   gap: 15px;
@@ -80,11 +81,28 @@ function copyToClip() {
   color: white;
 }
 .code {
+  position: relative;
   transition: 0.5s;
   overflow: hidden;
-  border-top: 1px solid #eee;
 }
 .highlight {
   padding: 0 10px;
+}
+.code-close {
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  font-size: 13px;
+  padding: 1px 8px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  color: #888;
+  background: #f6f8fa;
+  cursor: pointer;
+}
+.code-close:hover {
+  border: 1px solid #aaa;
+  color: #777;
+  background: #fbfbfb;
 }
 </style>

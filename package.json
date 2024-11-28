@@ -4,6 +4,9 @@
   "description": "基于Vue3的通用UI组件库",
   "license": "MIT",
   "type": "module",
+  "setting": {
+    "public": "./docs"
+  },
   "scripts": {
     "new": "cosy-new",
     "dev": "vuepress dev docs",
@@ -15,6 +18,6 @@
     "@highlightjs/vue-plugin": "github:highlightjs/vue-plugin",
     "highlight.js": "^11.10.0",
     "vuepress-theme-pudding": "file:theme",
-    "popsicle-ui": "file:ui"
+    "popsicle-ui": "file:docs/ui"
   }
 }

@@ -29,6 +29,7 @@
   border-radius: 10px;
   overflow: hidden;
   outline: 1px solid #eee;
+  font-size: 14px;
 }
 
 .mdContent table tr,

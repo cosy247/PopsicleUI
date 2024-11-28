@@ -1,8 +1,7 @@
 <template>
   <div class="main">
-    <Input :disable="true" placeholder="请输入内容。" />
-    <Input disable placeholder="请输入内容。" />
-    <Input :disable="false" placeholder="请输入内容。" />
+    <Input :disable="true" placeholder="禁用状态。" />
+    <Input readonly placeholder="只读状态。" />
   </div>
 </template>
 

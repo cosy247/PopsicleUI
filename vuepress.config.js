@@ -1,9 +1,11 @@
 import theme from 'vuepress-theme-pudding';
+import { setting } from './package.json';
 
 export default theme({
   title: 'PopsicleUI',
-  icon: 'assets/logo.icon',
+  icon: 'assets/logo.ico',
   logo: 'assets/logo.png',
+  public: setting.public,
   homeType: 'introduce',
   componentsPaths: ['components'],
   outline: false,

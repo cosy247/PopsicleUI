@@ -15,21 +15,21 @@ archiveTop: 90 # 文章归档排序，数字越大越靠前
 
 不用样式的按钮。
 
-:::Dome file="../docs/examples/Button/Basis.vue"  
+:::Dome file="../examples/Button/Basis.vue"  
 :::
 
 ## 大小设置
 
 通过 `size` 属性设置按钮大小，也可以通过 `font-size` 设置。
 
-:::Dome file="../docs/examples/Button/Size.vue"  
+:::Dome file="../examples/Button/Size.vue"  
 :::
 
 ## 禁用状态
 
 `disable` 属性为 `false` 时将不会响应交互操作。
 
-:::Dome file="../docs/examples/Button/Disable.vue"  
+:::Dome file="../examples/Button/Disable.vue"  
 :::
 
 ## 加载状态
@@ -37,25 +37,25 @@ archiveTop: 90 # 文章归档排序，数字越大越靠前
 通过 `loading` 属性控制加载状态，在加载状态中不可再次点击按钮。  
 如果存在 `#loading` 插槽，在加载时将替换原本按钮内容。
 
-:::Dome file="../docs/examples/Button/Loading.vue"  
+:::Dome file="../examples/Button/Loading.vue"  
 :::
 
 ## 按钮组
 
 通过 `ButtonGroup` 组件将多个按钮包揽在一起。
 
-:::Dome file="../docs/examples/Button/Group.vue"  
+:::Dome file="../examples/Button/Group.vue"  
 :::
 
 ## Button 属性
 
-| 名称    | 类型                          | 必填 | 默认值 | 说明                   |
-| ------- | ----------------------------- | :--: | :----: | ---------------------- |
-| shape   | `String[square,round,circle]` |  否  |   -    | 形状。                 |
-| type    | `String[plain,rich,text]`     |  否  |   -    | 样式。                 |
-| size    | `Number`                      |  否  |   -    | 尺寸，与字体大小有关。 |
-| disable | `Boolean`                     |  否  |  true  | 是否可用               |
-| loading | `Boolean`                     |  否  | false  | 是否处于加载状态       |
+| 名称    | 类型                          | 默认值 | 说明                   |
+| ------- | ----------------------------- | :----: | ---------------------- |
+| shape   | `String[square,round,circle]` |   -    | 形状。                 |
+| type    | `String[plain,rich,text]`     |   -    | 样式。                 |
+| size    | `Number`                      |   -    | 尺寸，与字体大小有关。 |
+| disable | `Boolean`                     |  true  | 是否可用               |
+| loading | `Boolean`                     | false  | 是否处于加载状态       |
 
 ## Button 插槽
 
@@ -65,8 +65,8 @@ archiveTop: 90 # 文章归档排序，数字越大越靠前
 
 ## 源码
 
-:::Dome title="Button.vue" file="../ui/components/Button.vue" hiddenTemp  
+:::Dome title="Button.vue" file=".../ui/components/Button.vue" hiddenTemp  
 :::
 
-:::Dome title="ButtonGroup.vue" file="../ui/components/ButtonGroup.vue" hiddenTemp  
+:::Dome title="ButtonGroup.vue" file=".../ui/components/ButtonGroup.vue" hiddenTemp  
 :::
