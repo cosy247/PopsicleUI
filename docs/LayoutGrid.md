@@ -1,12 +1,3 @@
----
-id: 1732157579949 # 文章id
-title: 栅格布局 LayoutGrid # 文章标题
-description: popsicle-ui 栅格布局 LayoutGrid # 文章描述
-archive: 组件 # 文章归档
-archiveTitle: 布局 # 文章归档目录标题
-archiveTop: 100 # 文章归档排序，数字越大越靠前
----
-
 # 栅格布局 LayoutGrid
 
 使用栅格对页面进行划分布局。
