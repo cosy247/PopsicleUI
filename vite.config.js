@@ -13,5 +13,4 @@ export default defineConfig({
       // vue: 'node_modules/@vue/reactivity/dist',
     },
   },
-  runtimeCompiler: true,
 });

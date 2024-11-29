@@ -5,14 +5,18 @@
         <img src="../assets/logo.png" alt="" />
         PopsicleUI
       </RouterLink>
-      <RouterLink class="link" to="start">指南</RouterLink>
-      <RouterLink class="link" to="component">组件</RouterLink>
+      <RouterLink class="link" to="/start" :class="{ active: path.startsWith('/start') }">指南</RouterLink>
+      <RouterLink class="link" to="/components" :class="{ active: path.startsWith('/components') }">组件</RouterLink>
     </div>
   </div>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router';
+import { computed } from 'vue';
+import { RouterLink, useRoute } from 'vue-router';
+
+const route = useRoute();
+const path = computed(() => route.path);
 </script>
 
 <style scoped>
@@ -23,6 +27,7 @@ import { RouterLink } from 'vue-router';
   top: 0;
   background: white;
   height: var(--header-height);
+  z-index: 500;
 }
 .main {
   width: 1000px;

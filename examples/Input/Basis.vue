@@ -1,5 +1,5 @@
 <template>
-  <Input v-model="name" placeholder="请输入内容。"/>
+  <Input v-model="name" placeholder="请输入内容。" />
 </template>
 
 <script setup>

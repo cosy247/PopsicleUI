@@ -7,21 +7,21 @@
 `LayoutGrid` 默认会将容器分为 10 \* 10 的无间距容器。  
 `LayoutGridItem` 的 `row` 和 `column` 属性设置位置。
 
-:::Dome file="../docs../examples/LayoutGrid/Basis.vue"  
+:::Dome file="/examples/LayoutGrid/Basis.vue"  
 :::
 
 ## 设置间距
 
 通过 `gap`, `gapRow` 和 `gapColumn` 属性设置容器间距。
 
-:::Dome file="../docs../examples/LayoutGrid/Gap.vue"  
+:::Dome file="/examples/LayoutGrid/Gap.vue"  
 :::
 
 ## 栅格密度
 
 通过 `row` 和 `column` 属性设置容器栅格密度，默认为 10。
 
-:::Dome file="../docs../examples/LayoutGrid/RowAndColumn.vue"  
+:::Dome file="/examples/LayoutGrid/RowAndColumn.vue"  
 :::
 
 ## LayoutGrid 属性
@@ -43,8 +43,8 @@
 
 ## 源码
 
-:::Dome title="LayoutGrid.vue" file="../docs/ui/components/LayoutGrid.vue" hiddenTemp  
+:::Dome title="LayoutGrid.vue" file="/ui/components/LayoutGrid.vue" hiddenTemp  
 :::
 
-:::Dome title="LayoutGridItem.vue" file="../docs/ui/components/LayoutGridItem.vue" hiddenTemp  
+:::Dome title="LayoutGridItem.vue" file="/ui/components/LayoutGridItem.vue" hiddenTemp  
 :::

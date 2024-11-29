@@ -5,30 +5,41 @@
       <RouterLink class="archive-art-item" v-for="item in art.links" :to="item.to">{{ item.name }}</RouterLink>
     </div>
   </div>
-  <MdContent path="/docs/use.md"/>
+  <MdContent :path="path" />
   <div class="toc"></div>
 </template>
 
 <script setup>
+import { useRoute } from 'vue-router';
 import MdContent from '../components/MdContent.vue';
+import { computed } from 'vue';
 
-const archives = [
-  {
-    name: '布局',
-    links: [
-      { name: '网格布局 LayoutGrid', to: 'layoutGrid' },
-      { name: '弹性布局 LayoutFlex', to: 'layoutFlex' },
+const route = useRoute();
+const path = computed(() => {
+  return `/docs${route.path}.md`;
+});
+
+const archives = computed(() => {
+  return {
+    components: [
+      {
+        name: '布局',
+        links: [
+          { name: '网格布局 LayoutGrid', to: 'LayoutGrid' },
+          { name: '弹性布局 LayoutFlex', to: 'LayoutFlex' },
+        ],
+      },
+      {
+        name: '基础',
+        links: [{ name: '按钮 Button', to: 'Button' }],
+      },
+      {
+        name: '表单',
+        links: [{ name: '输入框 Input', to: 'Input' }],
+      },
     ],
-  },
-  {
-    name: '基础',
-    links: [{ name: '按钮 Button', to: 'button' }],
-  },
-  {
-    name: '表单',
-    links: [{ name: '输入框 Input', to: 'input' }],
-  },
-];
+  }[route.name];
+});
 </script>
 
 <style scoped>
@@ -56,6 +67,7 @@ const archives = [
   white-space: nowrap;
   transition: 0.1s;
 }
+.archive-art-item.active,
 .archive-art-item:hover {
   color: var(--theme-color);
 }

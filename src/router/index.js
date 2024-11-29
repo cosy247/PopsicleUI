@@ -12,8 +12,12 @@ const routes = [
     component: () => import('../views/Article.vue'),
   },
   {
-    path: '/component',
-    name: 'component',
+    path: '/components',
+    redirect: '/components/LayoutGrid',
+  },
+  {
+    path: '/components/:name',
+    name: 'components',
     component: () => import('../views/Article.vue'),
   },
 ];

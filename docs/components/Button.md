@@ -6,21 +6,21 @@
 
 不用样式的按钮。
 
-:::Dome file="../examples/Button/Basis.vue"  
+:::Dome file="/examples/Button/Basis.vue"  
 :::
 
 ## 大小设置
 
 通过 `size` 属性设置按钮大小，也可以通过 `font-size` 设置。
 
-:::Dome file="../examples/Button/Size.vue"  
+:::Dome file="/examples/Button/Size.vue"  
 :::
 
 ## 禁用状态
 
 `disable` 属性为 `false` 时将不会响应交互操作。
 
-:::Dome file="../examples/Button/Disable.vue"  
+:::Dome file="/examples/Button/Disable.vue"  
 :::
 
 ## 加载状态
@@ -28,14 +28,14 @@
 通过 `loading` 属性控制加载状态，在加载状态中不可再次点击按钮。  
 如果存在 `#loading` 插槽，在加载时将替换原本按钮内容。
 
-:::Dome file="../examples/Button/Loading.vue"  
+:::Dome file="/examples/Button/Loading.vue"  
 :::
 
 ## 按钮组
 
 通过 `ButtonGroup` 组件将多个按钮包揽在一起。
 
-:::Dome file="../examples/Button/Group.vue"  
+:::Dome file="/examples/Button/Group.vue"  
 :::
 
 ## Button 属性
@@ -56,8 +56,8 @@
 
 ## 源码
 
-:::Dome title="Button.vue" file=".../ui/components/Button.vue" hiddenTemp  
+:::Dome title="Button.vue" file="/ui/components/Button.vue" hiddenTemp  
 :::
 
-:::Dome title="ButtonGroup.vue" file=".../ui/components/ButtonGroup.vue" hiddenTemp  
+:::Dome title="ButtonGroup.vue" file="/ui/components/ButtonGroup.vue" hiddenTemp  
 :::

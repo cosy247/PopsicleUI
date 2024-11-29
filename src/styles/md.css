@@ -8,26 +8,74 @@
     url('//at.alicdn.com/t/c/font_4752360_iiu4wh0mnx.ttf?t=1732175361950') format('truetype');
 }
 
-* {
+.mdContent {
   font-family: 'iconfont';
+  color: #444;
 }
 
-.mdContent > h1 a,
-.mdContent > h2 a,
-.mdContent > h3 a {
-  color: #363636;
-}
-.mdContent > h1 a::before,
-.mdContent > h2 a::before,
-.mdContent > h3 a::before {
-  content: '';
+.mdContent * {
+  margin: 0;
+  padding: 0;
 }
 
+/* h */
+.mdContent h1,
+.mdContent h2,
+.mdContent h3,
+.mdContent h4,
+.mdContent h5,
+.mdContent h6 {
+  margin: 0.5em 0;
+}
+
+.mdContent h1 {
+  font-size: 2.1em;
+}
+
+.mdContent h2 {
+  font-size: 1.8em;
+}
+
+.mdContent h3 {
+  font-size: 1.6em;
+}
+
+.mdContent h4 {
+  font-size: 1.4em;
+}
+
+.mdContent h5 {
+  font-size: 1.3em;
+}
+
+.mdContent h6 {
+  font-size: 1.2em;
+}
+
+/* table */
 .mdContent table {
-  border-radius: 10px;
-  overflow: hidden;
+  width: 100%;
+  border-radius: 5px;
   outline: 1px solid #eee;
-  font-size: 14px;
+  font-size: 0.9em;
+}
+
+.mdContent table th {
+  white-space: nowrap;
+}
+
+.mdContent table th,
+.mdContent table td {
+  padding: 0.4em 1em;
+}
+
+.mdContent table th + th,
+.mdContent table td + td {
+  border-left: 1px solid #eee;
+}
+
+.mdContent table tr td {
+  border-top: 1px solid #eee;
 }
 
 .mdContent table tr,
@@ -38,9 +86,4 @@
 
 .mdContent table tbody tr {
   border-top: 1px solid #eee;
-}
-
-.mdContent table th + th,
-.mdContent table td + td {
-  border-left: 1px solid #eee;
 }
