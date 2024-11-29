@@ -1,3 +1,5 @@
 :root {
   --theme-color: #2333d7;
+  --header-height: 60px;
+  --article-witdh: 750px;
 }

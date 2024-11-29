@@ -10,6 +10,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      // vue: 'node_modules/@vue/reactivity/dist',
     },
   },
+  runtimeCompiler: true,
 });

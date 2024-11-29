@@ -19,6 +19,10 @@ import { RouterLink } from 'vue-router';
 .Header {
   border-bottom: 1px solid #eee;
   box-shadow: 0 0 5px #8883;
+  position: sticky;
+  top: 0;
+  background: white;
+  height: var(--header-height);
 }
 .main {
   width: 1000px;
@@ -39,11 +43,12 @@ import { RouterLink } from 'vue-router';
   vertical-align: middle;
 }
 .link {
-	font-size: 16px;
-	padding: 20px;
-	font-weight: 900;
+  font-size: 16px;
+  line-height: 60px;
+  padding: 0 20px;
+  font-weight: 900;
 }
 .link.active {
-	color: var(--theme-color);
+  color: var(--theme-color);
 }
 </style>
