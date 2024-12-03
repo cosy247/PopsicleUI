@@ -33,8 +33,8 @@
           fill="#444444"></path>
       </svg>
       <slot name="right" />
-      <div class="prompt" v-if="props.promptList">
-        <div class="prompt-item" v-for="(prompt, index) in promptList">
+      <div class="prompts" v-if="props.promptList">
+        <div class="prompt" v-for="(prompt, index) in promptList">
           <slot name="prompt" :item="prompt" :index="index">
             <p
               :class="{ active: props.promptKey ? prompt[props.promptKey] === model : prompt === model }"
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, useAttrs } from 'vue';
+import { computed, ref } from 'vue';
 
 const emits = defineEmits(['change', 'focus', 'blur', 'keydown', 'keyup', 'select', 'input', 'prompt']);
 const events = {
@@ -235,7 +235,7 @@ function handlePrompt(index: number, prompt: any) {
   cursor: pointer;
   user-select: none;
 }
-.prompt {
+.prompts {
   position: absolute;
   left: 0;
   top: 120%;
@@ -253,23 +253,24 @@ function handlePrompt(index: number, prompt: any) {
   max-height: 20em;
   overflow-y: auto;
   white-space: nowrap;
+  font-size: 0.9em;
 }
-.tag:focus ~ .prompt {
+.tag:focus ~ .prompts {
   opacity: 1;
   top: 105%;
   z-index: 999;
   visibility: visible;
 }
-.prompt-item {
+.prompt {
   cursor: pointer;
 }
-.prompt-item > * {
+.prompt > * {
   padding: 0.2em 1em;
 }
-.prompt-item.active {
+.prompt.active {
   background-color: #287ef622;
 }
-.prompt-item:hover {
+.prompt:hover {
   background-color: #287ef644;
 }
 </style>
