@@ -4,27 +4,28 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { computed } from 'vue';
+import { toInt, toSize } from '../utils/props';
 
-const { row, column, gap, gapRow, gapColumn } = defineProps<{
-  row?: Number;
-  column?: Number;
-  gap?: Number | String;
-  gapRow?: Number | String;
-  gapColumn?: Number | String;
-}>();
+const props = defineProps({
+  row: toInt([1]),
+  column: toInt([1]),
+  gap: [String, Number],
+  gapRow: [String, Number],
+  gapColumn: [String, Number],
+});
 
 const style = computed(() => {
   let gapRow0, gapColumn0;
-  if (typeof gap === 'undefined') {
-    gapRow0 = typeof gapRow === 'number' ? `${gapRow}px` : gapRow;
-    gapColumn0 = typeof gapColumn === 'number' ? `${gapColumn}px` : gapColumn;
+  if (typeof props.gap === 'undefined') {
+    gapRow0 = toSize(props.gapRow);
+    gapColumn0 = toSize(props.gapColumn);
   } else {
-    gapRow0 = gapColumn0 = typeof gap === 'number' ? `${gap}px` : gap;
+    gapRow0 = gapColumn0 = toSize(props.gap);
   }
   return {
-    grid: `repeat(${row}, minmax(0, 1fr)) / repeat(${column}, minmax(0, 1fr))`,
+    grid: `repeat(${props.row}, minmax(0, 1fr)) / repeat(${props.column}, minmax(0, 1fr))`,
     gap: `${gapRow0} ${gapColumn0}`,
   };
 });

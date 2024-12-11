@@ -1,17 +1,25 @@
 <template>
   <div class="Input" :class="classList" :style="style">
-    <p v-show="props.label" class="label" :style="labelStyle">{{ props.label }}</p>
-    <slot name="label" />
+    <slot name="label">
+      <p v-show="props.label" class="label" :style="labelStyle">{{ props.label }}</p>
+    </slot>
     <div class="main">
       <slot name="left" />
+      <textarea
+        v-if="props.type === 'textarea'"
+        class="tag"
+        v-on="events"
+        v-model="model"
+        :placeholder="props.placeholder"></textarea>
       <input
+        v-else
         v-on="events"
         class="tag"
-        :type="props.password && !isSeePassword ? 'password' : 'text'"
+        :type="props.type"
         v-model="model"
         :placeholder="props.placeholder"
         :maxlength="props.maxLength" />
-      <div v-show="model && props.clearable" class="clear" @click="model = ''"></div>
+      <Icon name="fork" v-show="model && props.clearable" class="clear" @click="model = ''" />
       <div v-show="props.maxLength && showLimit" class="limit">{{ model?.length || 0 }}/{{ props.maxLength }}</div>
       <svg
         class="see"
@@ -33,7 +41,7 @@
           fill="#444444"></path>
       </svg>
       <slot name="right" />
-      <div class="prompts" v-if="props.promptList">
+      <div class="prompts" v-if="props.promptList.length">
         <div class="prompt" v-for="(prompt, index) in promptList">
           <slot name="prompt" :item="prompt" :index="index">
             <p
@@ -45,11 +53,16 @@
         </div>
       </div>
     </div>
+    <slot name="rightLabel">
+      <p v-show="props.rightLabel" class="label">{{ props.rightLabel }}</p>
+    </slot>
   </div>
 </template>
 
-<script lang="ts" setup>
-import { computed, ref } from 'vue';
+<script setup>
+import { computed, nextTick, ref, watch } from 'vue';
+import { toEnum, toSize, toArray, toBoolean, toInt, toString } from '../utils/props';
+import Icon from './Icon.vue';
 
 const emits = defineEmits(['change', 'focus', 'blur', 'keydown', 'keyup', 'select', 'input', 'prompt']);
 const events = {
@@ -61,66 +74,69 @@ const events = {
   select: () => emits('select', model.value),
   input: () => emits('input', model.value),
 };
-const props = defineProps<{
-  placeholder?: string;
-  clearable?: boolean;
-  size?: number | string;
-  value?: number | string;
-  disable?: boolean;
-  maxLength?: number;
-  showLimit?: boolean;
-  label?: string;
-  labelWidth?: number | string;
-  password?: boolean;
-  showPasswordType?: string;
-  readonly?: boolean;
-  promptList?: Array<any>;
-  promptKey?: string;
-  promptFilter?: boolean;
-}>();
-const model = defineModel({ default: '' });
-if (props.value) {
-  model.value = typeof props.value == 'number' ? String(props.value) : props.value;
-}
+const props = defineProps({
+  placeholder: String,
+  clearable: toBoolean(),
+  size: [String, Number],
+  type: toEnum(['text', 'password', 'textarea', 'number'], 'text'),
+  value: [String, Number],
+  disable: toBoolean(),
+  maxLength: toInt([1]),
+  showLimit: toBoolean(),
+  label: String,
+  rightLabel: String,
+  labelWidth: [String, Number],
+  passwordWhen: toEnum(['never', 'hover', 'click'], 'never'),
+  readonly: toBoolean(),
+  promptList: toArray(),
+  promptKey: String,
+  promptFilter: toBoolean(),
+});
 
+// 绑定值
+const model = defineModel();
+nextTick(() => {
+  watch(
+    () => props.value,
+    () => {
+      if (typeof props.value === 'undefined') return;
+      model.value = props.value;
+    },
+    { immediate: true }
+  );
+});
+
+// 样式处理
 const classList = computed(() => {
-  const classList: Array<string> = [];
+  const classList = [];
   if (props.clearable) classList.push('clearable');
   if (props.disable) classList.push('disable');
   if (props.readonly) classList.push('readonly');
   return classList.join(' ');
 });
 const style = computed(() => {
-  const style: { fontSize?: string } = {};
-  if (props.size) {
-    style.fontSize = typeof props.size == 'number' ? `${props.size}px` : props.size;
-  }
-  return style;
+  return { fontSize: toSize(props.size) };
 });
 const labelStyle = computed(() => {
-  const style: { width?: string } = {};
-  if (props.labelWidth) {
-    style.width = typeof props.labelWidth == 'number' ? `${props.labelWidth}px` : props.labelWidth;
-  }
-  return style;
+  return { width: toSize(props.labelWidth) };
 });
 
 // password
 const isSeePassword = ref(false);
 const isShowSee = computed(() => {
   if (!props.password) return;
-  return ['click', 'hover'].includes(props.showPasswordType || '');
+  return ['click', 'hover'].includes(props.passwordWhen || '');
 });
 function handleSeeClick() {
-  if (props.showPasswordType === 'click') {
+  if (props.passwordWhen === 'click') {
     isSeePassword.value = !isSeePassword.value;
   }
 }
 function showHoverPassword() {
-  if (props.showPasswordType === 'hover') isSeePassword.value = true;
+  if (props.passwordWhen === 'hover') isSeePassword.value = true;
 }
 function hiddenHoverPassword() {
-  if (props.showPasswordType === 'hover') isSeePassword.value = false;
+  if (props.passwordWhen === 'hover') isSeePassword.value = false;
 }
 
 // prompt
@@ -141,7 +157,7 @@ const promptList = computed(() => {
     return props.promptList;
   }
 });
-function handlePrompt(index: number, prompt: any) {
+function handlePrompt(index, prompt) {
   model.value = props.promptKey ? prompt[props.promptKey] : prompt;
   emits('prompt', prompt, index);
 }
@@ -150,7 +166,6 @@ function handlePrompt(index: number, prompt: any) {
 <style scoped>
 .Input {
   display: inline-flex;
-  align-items: center;
   font-size: inherit;
   gap: 10px;
 }
@@ -171,14 +186,19 @@ function handlePrompt(index: number, prompt: any) {
   pointer-events: none;
   background: #f5f5f5;
 }
+.label {
+  padding: 0.25em 0;
+}
 .main {
   position: relative;
   display: flex;
   align-items: center;
   width: 14em;
-  padding: 0.2em 0.5em;
+  flex: 1;
+  padding-right: 1em;
   border: 1px solid #aaa;
-  border-radius: 3px;
+  border-radius: 0.25em;
+  background: white;
 }
 .main:has(.tag:focus),
 .main:hover {
@@ -194,6 +214,9 @@ function handlePrompt(index: number, prompt: any) {
   font-size: 0.9em;
   transition: border 0.2s;
   box-sizing: border-box;
+  font-family: inherit;
+  padding: 0.5em 0 0.5em 1em;
+  border-radius: 0.25em;
 }
 .tag[type='password']::-ms-reveal {
   display: none;
@@ -202,27 +225,8 @@ function handlePrompt(index: number, prompt: any) {
   position: relative;
   margin-left: 0.5em;
   flex-shrink: 0;
-  width: 1em;
-  height: 1em;
   cursor: pointer;
   border-radius: 1em;
-}
-.clear::after,
-.clear::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: block;
-  width: 0.1em;
-  height: 0.8em;
-  background: #aaa;
-  border-radius: 0.5em;
-  transform-origin: center center;
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.clear::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
 }
 .limit {
   flex-shrink: 0;

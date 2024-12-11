@@ -4,17 +4,26 @@
     <slot name="label" />
     <div class="main">
       <slot name="left" />
-      <input v-on="events" class="tag" v-model="showModel" :placeholder="props.placeholder" readonly />
+      <input
+        v-on="events"
+        class="tag"
+        v-model="showModel"
+        :placeholder="props.placeholder"
+        readonly
+        @focus="showOptions"
+        @blur="hiddenOptions" />
       <div v-show="model && props.clearable" class="clear" @click="model = ''"></div>
-      <slot name="right" />
-      <div class="options" v-if="props.options">
-        <div class="option" v-for="(option, index) in options">
+      <slot name="right">
+        <Icon class="right" name="arrow" />
+      </slot>
+      <div class="options" :class="{ show: isShowOptions }" v-if="props.options">
+        <div
+          class="option"
+          v-for="(option, index) in options"
+          :class="{ active: props.valueKey ? option[props.valueKey] === model : option === model }"
+          @click="handleSelect(index, option)">
           <slot name="option" :item="option" :index="index">
-            <p
-              :class="{ active: props.valueKey ? option[props.valueKey] === model : option === model }"
-              @click="handleSelect(index, option)">
-              {{ props.nameKey ? option[props.nameKey] : option }}
-            </p>
+            {{ props.nameKey ? option[props.nameKey] : option }}
           </slot>
         </div>
       </div>
@@ -22,8 +31,10 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { computed, ref } from 'vue';
+<script setup>
+import { computed, nextTick, ref } from 'vue';
+import { toArray, toBoolean, toSize } from '../utils/props';
+import Icon from './Icon.vue';
 
 const emits = defineEmits(['change', 'focus', 'blur', 'input']);
 const events = {
@@ -32,48 +43,51 @@ const events = {
   blur: () => emits('blur', model.value),
   input: () => emits('input', model.value),
 };
-const props = defineProps<{
-  placeholder?: string;
-  clearable?: boolean;
-  size?: number | string;
-  value?: number | string;
-  disable?: boolean;
-  label?: string;
-  labelWidth?: number | string;
-  readonly?: boolean;
-  options: Array<any>;
-  nameKey: string;
-  valueKey: string;
-  filter?: boolean;
-}>();
-const model = defineModel({ default: '' });
-const showModel = ref('');
+const props = defineProps({
+  placeholder: String,
+  clearable: toBoolean,
+  size: [Number, String],
+  value: {},
+  disable: toBoolean,
+  label: String,
+  labelWidth: [Number, String],
+  readonly: toBoolean(),
+  options: toArray(),
+  nameKey: String,
+  valueKey: String,
+  filter: toBoolean,
+});
+const model = defineModel();
 if (props.value) {
   model.value = typeof props.value == 'number' ? String(props.value) : props.value;
-  const sm = props.options.find((op) => (props.valueKey ? op[props.valueKey] === model.value : op === model.value));
-  if (sm) showModel.value = props.nameKey ? sm[props.nameKey] : sm;
 }
 
+const isShowOptions = ref(false);
+function showOptions() {
+  isShowOptions.value = true;
+}
+
+function hiddenOptions() {
+  setTimeout(() => (isShowOptions.value = false), 200);
+}
+
+const showModel = computed(() => {
+  const sm = props.options.find((op) => (props.valueKey ? op[props.valueKey] === model.value : op === model.value));
+  if (sm) return props.nameKey ? sm[props.nameKey] : sm;
+});
+
 const classList = computed(() => {
-  const classList: Array<string> = [];
+  const classList = [];
   if (props.clearable) classList.push('clearable');
   if (props.disable) classList.push('disable');
   if (props.readonly) classList.push('readonly');
   return classList.join(' ');
 });
 const style = computed(() => {
-  const style: { fontSize?: string } = {};
-  if (props.size) {
-    style.fontSize = typeof props.size == 'number' ? `${props.size}px` : props.size;
-  }
-  return style;
+  return { fontSize: toSize(props.size) };
 });
 const labelStyle = computed(() => {
-  const style: { width?: string } = {};
-  if (props.labelWidth) {
-    style.width = typeof props.labelWidth == 'number' ? `${props.labelWidth}px` : props.labelWidth;
-  }
-  return style;
+  return { width: toSize(props.labelWidth) };
 });
 
 // options
@@ -94,9 +108,9 @@ const options = computed(() => {
     return props.options;
   }
 });
-function handleSelect(index: number, option: any) {
+function handleSelect(index, option) {
+  isShowOptions.value = false;
   model.value = props.valueKey ? option[props.valueKey] : option;
-  showModel.value = props.nameKey ? option[props.nameKey] : option;
 }
 </script>
 
@@ -129,9 +143,9 @@ function handleSelect(index: number, option: any) {
   display: flex;
   align-items: center;
   width: 14em;
-  padding: 0.2em 0.5em;
+  flex: 1;
   border: 1px solid #aaa;
-  border-radius: 3px;
+  border-radius: 0.25em;
 }
 .main:has(.tag:focus),
 .main:hover {
@@ -147,7 +161,9 @@ function handleSelect(index: number, option: any) {
   font-size: 0.9em;
   transition: border 0.2s;
   box-sizing: border-box;
-  cursor: pointer;
+  font-family: inherit;
+  padding: 0.5em 0 0.5em 1em;
+  border-radius: 0.25em;
 }
 .clear {
   position: relative;
@@ -175,48 +191,45 @@ function handleSelect(index: number, option: any) {
 .clear::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
-.limit {
-  flex-shrink: 0;
-  font-size: 0.8em;
-  color: #888;
-  margin-left: 0.5em;
+.right {
+  transition: 0.2s;
+  margin: 0 0.5em;
 }
-.see {
-  margin-left: 0.5em;
-  cursor: pointer;
-  user-select: none;
+.tag:focus ~ .right {
+  transform: rotate(180deg);
 }
 .options {
   position: absolute;
   left: 0;
   top: 120%;
   border: 1px solid #ddd;
+  box-sizing: border-box;
   min-width: 100%;
+  max-height: 20em;
   background: white;
   padding: 0.2em 0;
-  z-index: 999;
   border-radius: 0.2em;
   transition: 0.2s;
   box-shadow: 0 0 5px #8883;
   opacity: 0;
   z-index: -1;
   visibility: hidden;
-  max-height: 20em;
   overflow-y: auto;
   white-space: nowrap;
   font-size: 0.9em;
 }
-.tag:focus ~ .options {
+.show.options {
   opacity: 1;
   top: 105%;
   z-index: 999;
   visibility: visible;
+  transition-delay: 0.1s;
 }
 .option {
   cursor: pointer;
-}
-.option > * {
-  padding: 0.2em 1em;
+  padding: 0.5em 1em;
+  height: 1em;
+  border: solid 2px #0000;
 }
 .option.active {
   background-color: #287ef622;

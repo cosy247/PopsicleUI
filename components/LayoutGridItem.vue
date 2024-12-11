@@ -4,13 +4,14 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { computed } from 'vue';
+import { toArray } from '../utils/props';
 
-const { row, column } = defineProps<{
-  row: Array<number>;
-  column: Array<number>;
-}>();
+const { row, column } = defineProps({
+  row: toArray(Number),
+  column: toArray(Number),
+});
 const gridArea = computed(() => {
   let [rowStart = 1, rowEnd = rowStart] = row;
   let [cloumnStart = 1, cloumnEnd = cloumnStart] = column;
